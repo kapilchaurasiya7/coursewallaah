@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Courses Wallah | Premium Digital Marketplace</title>
+  <!-- Google Fonts & Modern CSS Reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* -------------------- CSS (styles.css) -------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050510;
+      color: #f0f0ff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Canvas 3D background */
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Main content overlay */
+    .content {
+      position: relative;
+      z-index: 10;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* Header / Nav */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1rem 0 2rem 0;
+      border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+      margin-bottom: 3rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #aaccff, #6a4eff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: #dddfff;
+      text-decoration: none;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 5px #6a4eff;
+    }
+
+    /* Hero section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 0 4rem;
+    }
+
+    .badge {
+      background: rgba(106, 78, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(106, 78, 255, 0.6);
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      max-width: 900px;
+      background: linear-gradient(to right, #fff, #b7aaff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #c0caf5;
+      max-width: 650px;
+      margin-bottom: 2rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(105deg, #6a4eff, #3c2b9b);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(106, 78, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(106, 78, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(106, 78, 255, 0.7);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      color: #eef;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(106, 78, 255, 0.3);
+      border-color: #a77eff;
+    }
+
+    /* Free Demo Button */
+    .free-demo-section {
+      margin: 2rem 0 3rem;
+      text-align: center;
+    }
+
+    .btn-free-demo {
+      background: linear-gradient(135deg, #ff6a4e, #ff4e8a, #ffaa4e);
+      background-size: 200% 200%;
+      border: none;
+      padding: 1.2rem 3rem;
+      border-radius: 60px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 106, 78, 0.4);
+      position: relative;
+      overflow: hidden;
+      animation: gradientShift 3s ease infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-free-demo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 106, 78, 0.6);
+    }
+
+    .btn-free-demo:active {
+      transform: scale(0.98);
+    }
+
+    .btn-free-demo::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-free-demo:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .demo-icon {
+      font-size: 1.5rem;
+      animation: bounce 1s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Products grid - enhanced for images */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 4rem 0 2rem;
+      background: linear-gradient(120deg, #eef, #b6a2ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #9a9ae0;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .product-card {
+      background: rgba(20, 20, 50, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 1.8rem;
+      overflow: hidden;
+      border: 1px solid rgba(106, 78, 255, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      border-color: #9a7aff;
+      background: rgba(30, 30, 70, 0.8);
+      box-shadow: 0 25px 45px rgba(106, 78, 255, 0.2);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+      background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.02);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #6a4eff, #4a2bc0);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .product-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+
+    .product-card p {
+      color: #bcbef5;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0.8rem 0 1rem;
+      color: #e6d5ff;
+    }
+
+    .buy-btn {
+      background: #6a4eff;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .buy-btn:hover {
+      background: #8b6eff;
+      transform: scale(0.98);
+    }
+
+    /* Social Media Buttons Section */
+    .contact-section {
+      margin: 5rem 0 2rem;
+      position: relative;
+    }
+
+    .contact-wrapper {
+      background: linear-gradient(135deg, rgba(106, 78, 255, 0.15), rgba(60, 43, 155, 0.25));
+      backdrop-filter: blur(20px);
+      border-radius: 4rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      border: 1px solid rgba(106, 78, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .contact-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(106, 78, 255, 0.1), transparent 70%);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .contact-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .contact-wrapper h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff, #b7aaff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .contact-wrapper p {
+      color: #bcbef5;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Social Buttons Container */
+    .social-buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    /* Individual Social Buttons */
+    .social-media-btn {
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-media-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .social-media-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .social-media-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-media-btn:active {
+      transform: translateY(-2px);
+    }
+
+    /* Telegram Button */
+    .btn-telegram {
+      background: linear-gradient(135deg, #0088cc, #006699);
+      box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+    }
+
+    .btn-telegram:hover {
+      box-shadow: 0 8px 25px rgba(0, 136, 204, 0.5);
+    }
+
+    /* Instagram Button */
+    .btn-instagram {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af, #515bd4);
+      background-size: 200% 200%;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .btn-instagram:hover {
+      box-shadow: 0 8px 25px rgba(221, 42, 123, 0.5);
+    }
+
+    /* WhatsApp Button */
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+    }
+
+    .social-icon {
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+
+    .social-media-btn:hover .social-icon {
+      transform: scale(1.1);
+    }
+
+    /* Social Icons Row */
+    .social-icons-row {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .social-icon-circle {
+      background: rgba(106, 78, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 0.8rem;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      border: 1px solid rgba(106, 78, 255, 0.5);
+      cursor: pointer;
+      font-size: 1.3rem;
+    }
+
+    .social-icon-circle:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(106, 78, 255, 0.4);
+      border-color: #ffaa4e;
+    }
+
+    /* Toast notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e1a3a;
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      color: white;
+      font-weight: 500;
+      border-left: 5px solid #6a4eff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      font-size: 0.9rem;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(100, 100, 200, 0.3);
+      color: #9b9bdf;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .content {
+        padding: 1rem;
+      }
+      .navbar {
+        flex-direction: column;
+      }
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-wrapper h2 {
+        font-size: 1.8rem;
+      }
+      .social-buttons-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .social-media-btn {
+        width: 80%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="canvas-container"></div>
+
+<div class="content">
+  <nav class="navbar">
+    <div class="logo">📚The COURSES WALLAH</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#products">Marketplace</a>
+      <a href="#contact">Contact</a>
+      <a href="#">Studio</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">✨ 4000+ Premium Courses ✨</div>
+    <h1>Learn Smart 😎 · Pay Less 🤑<br>Earn More ⚜️</h1>
+    <p>Unlock 4000+ premium courses, design systems, 3D kits, UI libraries & more. Lifetime access guaranteed!</p>
+    <div class="cta-group">
+      <button class="btn-primary" id="exploreBtn">Explore Collection →</button>
+      <button class="btn-secondary" id="watchDemoBtn">Watch Demo</button>
+    </div>
+  </section>
+
+  <div class="section-title" id="products">🔥 Premium Courses Bundle</div>
+  <div class="section-sub">30+ premium courses with lifetime access</div>
+  <div class="products-grid" id="productsGrid">
+    <!-- Dynamic product cards with images will be injected via JS -->
+  </div>
+
+  <!-- Free Demo Button -->
+  <div class="free-demo-section">
+    <button class="btn-free-demo" id="freeDemoBtn">
+      <span class="demo-icon">🎥</span>
+      Get Free Demo Class
+      <span class="demo-icon">✨</span>
+    </button>
+  </div>
+
+  <!-- Contact Section with All Social Media Buttons -->
+  <div class="contact-section" id="contact">
+    <div class="contact-wrapper">
+      <div class="contact-icon">🌟💬🚀</div>
+      <h2>Connect With Us</h2>
+      <p>Join our community on Telegram, Instagram & WhatsApp for exclusive updates!</p>
+      
+      <!-- Social Media Buttons -->
+      <div class="social-buttons-container">
+        <button class="social-media-btn btn-telegram" id="telegramBtn">
+          <span class="social-icon">📱</span>
+          Telegram Channel
+        </button>
+        
+        <button class="social-media-btn btn-instagram" id="instagramBtn">
+          <span class="social-icon">📸</span>
+          Instagram Profile
+        </button>
+        
+        <button class="social-media-btn btn-whatsapp" id="whatsappBtn">
+          <span class="social-icon">💬</span>
+          WhatsApp chat
+        </button>
+      </div>
+      
+      <!-- Social Media Icons Row -->
+      <div class="social-icons-row">
+        <div class="social-icon-circle" id="telegramIcon">📱</div>
+        <div class="social-icon-circle" id="instagramIcon">📸</div>
+        <div class="social-icon-circle" id="whatsappIcon">💬</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Courses Wallah — 4000+ Premium Courses | Learn Smart, Pay Less, Earn More ⚜️
+  </footer>
+</div>
+
+<div id="toastMessage" class="toast-msg">✨ Item added to cart (demo)</div>
+
+<!-- Three.js Library and Animation Code -->
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+    }
+  }
+</script>
+
+<script type="module">
+  // -------------------- 3D ANIMATION (Three.js) --------------------
+  import * as THREE from 'three';
+
+  const container = document.getElementById('canvas-container');
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x050510);
+  scene.fog = new THREE.FogExp2(0x050510, 0.008);
+
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 2, 12);
+  camera.lookAt(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0x22223b);
+  scene.add(ambientLight);
+  const mainLight = new THREE.DirectionalLight(0xffffff, 1);
+  mainLight.position.set(5, 10, 7);
+  scene.add(mainLight);
+  const backLight = new THREE.PointLight(0x6a4eff, 0.6);
+  backLight.position.set(-3, 2, -5);
+  scene.add(backLight);
+  const fillLight = new THREE.PointLight(0xff77aa, 0.4);
+  fillLight.position.set(4, 3, 4);
+  scene.add(fillLight);
+  
+  // Central glowing torus knot
+  const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.28, 180, 24, 3, 4);
+  const knotMat = new THREE.MeshStandardMaterial({ color: 0x8a6eff, emissive: 0x2a1a7a, roughness: 0.3, metalness: 0.7 });
+  const knot = new THREE.Mesh(knotGeo, knotMat);
+  scene.add(knot);
+  
+  // Particle system
+  const particlesCount = 900;
+  const particlesGeometry = new THREE.BufferGeometry();
+  const posArray = new Float32Array(particlesCount * 3);
+  for (let i = 0; i < particlesCount; i++) {
+    posArray[i*3] = (Math.random() - 0.5) * 20;
+    posArray[i*3+1] = (Math.random() - 0.5) * 14;
+    posArray[i*3+2] = (Math.random() - 0.5) * 18 - 5;
+  }
+  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+  const particlesMat = new THREE.PointsMaterial({ color: 0xa79aff, size: 0.07, transparent: true, opacity: 0.6 });
+  const particles = new THREE.Points(particlesGeometry, particlesMat);
+  scene.add(particles);
+  
+  // Decorative ring group
+  const groupRing = new THREE.Group();
+  const ringGeo = new THREE.TorusGeometry(1.6, 0.05, 64, 200);
+  const ringMat = new THREE.MeshStandardMaterial({ color: 0x4c3b9e, emissive: 0x191240 });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.rotation.x = Math.PI / 2;
+  groupRing.add(ring);
+  
+  const ring2Geo = new THREE.TorusGeometry(1.9, 0.04, 64, 200);
+  const ring2Mat = new THREE.MeshStandardMaterial({ color: 0xb27aff });
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.rotation.z = Math.PI / 3;
+  ring2.rotation.x = 0.8;
+  groupRing.add(ring2);
+  scene.add(groupRing);
+  
+  // Starfield
+  const starFieldGeo = new THREE.BufferGeometry();
+  const starCount = 1500;
+  const starPos = new Float32Array(starCount * 3);
+  for (let i = 0; i < starCount; i++) {
+    starPos[i*3] = (Math.random() - 0.5) * 200;
+    starPos[i*3+1] = (Math.random() - 0.5) * 100;
+    starPos[i*3+2] = (Math.random() - 0.5) * 80 - 40;
+  }
+  starFieldGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.5 });
+  const stars = new THREE.Points(starFieldGeo, starMat);
+  scene.add(stars);
+  
+  let time = 0;
+  function animate3D() {
+    requestAnimationFrame(animate3D);
+    time += 0.008;
+    
+    knot.rotation.x += 0.008;
+    knot.rotation.y += 0.012;
+    knot.rotation.z += 0.005;
+    
+    groupRing.rotation.y = time * 0.4;
+    groupRing.rotation.x = Math.sin(time * 0.3) * 0.3;
+    
+    particles.rotation.y = time * 0.05;
+    particles.rotation.x = Math.sin(time * 0.2) * 0.1;
+    stars.rotation.y = time * 0.02;
+    
+    camera.position.x += (0 - camera.position.x) * 0.02;
+    camera.position.y += (Math.sin(time * 0.5) * 0.08 - camera.position.y) * 0.03;
+    camera.lookAt(0, 0.5, 0);
+    
+    renderer.render(scene, camera);
+  }
+  animate3D();
+  
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+  
+  // =====================================================
+  // 🔥🔥🔥 PRODUCT DATA - 30 PRODUCTS 🔥🔥🔥
+  // =====================================================
+  
+  const products = [
+    { id: 1, name: "Zero To Hero (Job ready Course)", description: "Complete video editing courses (after effect).", price: "₹299", tag: "🔥 Best Seller", image: "image12.jpg" },
+    { id: 2, name: "Communication Masterclass 2.0", description: "Improve your communication skills", price: "₹199", tag: "✨ Popular", image: "image11.jpg" },
+    { id: 3, name: "Meta Ads Mentorship January 2026 By Aryan Tripathi", description: "Meta ads complete course.", price: "₹199", tag: "⚡ New", image: "image10.jpg" },
+    { id: 4, name: "Ultimate Editors 2.0", description: "The 90-Day Plan to become a Professional Video Editor and Make $1,000-$2,000 in just 90 Days!👑", price: "₹999", tag: "🎮 Trending", image: "image9.jpg" },
+    { id: 5, name: "𝗫𝗼 𝗠𝘂𝗹𝘁𝗶𝗺𝗲𝗱𝗶𝗮 / 𝗩𝗶𝗱𝗲𝗼 𝗘𝗱𝗶𝘁𝗶𝗻𝗴 𝗹𝗮𝘂𝗻𝗰𝗵𝗽𝗮𝗱", description: "Beginner to advance level video editing", price: "₹349", tag: "🎨 Mobile", image: "image8.jpg" },
+    { id: 6, name: "Memory Enhancement Programme", description: "Boost your intelligence and memory power", price: "₹199", tag: "🧠 Brain", image: "image7.jpg" },
+    { id: 7, name: "Youtube Course by Mitesh Khatri", description: "Complete YouTube growth course.", price: "₹199", tag: "📺 YouTube", image: "image6.jpg" },
+    { id: 8, name: "Manoj Dey Creators Launchpad Course", description: "YouTube course by Manoj Dev", price: "₹249", tag: "🚀 Launchpad", image: "image5.jpg" },
+    { id: 9, name: "The YouTube Blueprint Course by Dhruv Rathee", description: "Grow your career on YouTube.", price: "₹199", tag: "📈 Growth", image: "image4.jpg" },
+    { id: 10, name: "Become A Pro in Facebook & Instagram ADS", description: "Master Facebook & Instagram ADS by Damini Tripathi.", price: "₹249", tag: "📊 Ads", image: "image3.jpg" },
+    { id: 11, name: "Advanced Social Media Marketing", description: "Complete social media marketing masterclass.", price: "₹249", tag: "📱 Marketing", image: "image2.jpg" },
+    { id: 12, name: "Saqlain Khan Video Editing COHART 2.0", description: "Complete documentary video editing from zero to hero.", price: "₹499", tag: "🎬 Editing", image: "image1.jpg" },
+    { id: 13, name: "video editing Storytelling BY RAJEEV MEHTA", description: "Edit & Cuts – Learn Video Editing & Visual Storytelling BY RAJEEV MEHTA", price: "₹199", tag: "🐍 Coding", image: "image13.jpg" },
+    { id: 14, name: "Hitesh chaudhary & piyush chaudary geni ai COHART", description: " genai COHART.", price: "₹199", tag: "💻 Web Dev", image: "image14.jpg" },
+    { id: 15, name: "21 Days Social Media Growth Challenge", description: "21 Days Social Media Growth Challenge.", price: "₹199", tag: "🤖 AI/ML", image: "image15.jpg" },
+    { id: 16, name: "Sigma 9.0 (Live Recording Sessions)", description: "Sigma 9.0 (Live Recording Sessions)by harry.", price: "₹229", tag: "🎨 Design", image: "image16.jpg" },
+    { id: 17, name: "Ultimate Job Ready AI Powered Data Analytics Course", description: "Ultimate Job Ready AI Powered Data Analytics Course by code with harry", price: "₹229", tag: "📈 Marketing", image: "image17.jpg" },
+    { id: 18, name: "Job Ready Al Powered Cohort: Web + DSA + Aptitude", description: "", price: "₹299", tag: "💼 Freelance", image: "image18.jpg" },
+    { id: 19, name: "ZERO TO HERO JOB READY BY VIBHU TRIVEDI", description: "", price: "₹499", tag: "📊 Trading", image: "image19.jpg" },
+    { id: 20, name: "Prime 2.0 - Complete Al/ML", description: "Prime 2.0 - Complete Al/ML Batch to become job ready in 4.5 months.", price: "₹499", tag: "📸 Photography", image: "image20.jpg" },
+    { id: 21, name: "ECOM EDGE ACCELERATOR By Nishkarsh Sharma.. Build. Launch. Earn", description: "Become a confident public speaker.", price: "₹399", tag: "🎤 Speaking", image: "image21.jpg" },
+    { id: 22, name: "Complete Ultimate Job Ready Data Science Course", description: "", price: "₹199", tag: "📊 Data", image: "image22.jpg" },
+    { id: 23, name: "Sigma 8.0", description: "", price: "₹199", tag: "📱 Android", image: "image23.jpg" },
+    { id: 24, name: "Sigma 8.0", description: " job ready course", price: "₹199", tag: "🍎 iOS", image: "image24.jpg" },
+    { id: 25, name: "Instagram 101 Ranveer allahbadiya", description: "complete zero to hero.", price: "₹199", tag: "🔒 Security", image: "image25.jpg" },
+    { id: 26, name: " THE ULTIMATE GUIDE TO EFFECTIVE COMMUNICATION", description: " THE ULTIMATE GUIDE TO EFFECTIVE COMMUNICATION by ankur warikroo", price: "₹199", tag: "☁️ Cloud", image: "image26.jpg" },
+    { id: 27, name: "Alina Rais English Speaking Course", description: "english spoken", price: "₹149", tag: "⛓️ Web3", image: "image27.jpg" },
+    { id: 28, name: "Dynamic edits deepak daiya", description: "Complete video editing courses.", price: "₹199", tag: "🎥 Editing", image: "image28.jpg" },
+    { id: 29, name: "Time management course by Dhruve rathee ", description: ".", price: "₹199", tag: "✨ Motion", image: "image29.jpg" },
+    { id: 30, name: "Master ChatGPT course by Dhruve rathee", description: "", price: "₹149", tag: "🎬 3D", image: "image30.jpg" }
+  ];
+  
+  function renderProductCards() {
+    const gridContainer = document.getElementById('productsGrid');
+    if (!gridContainer) return;
+    gridContainer.innerHTML = '';
+    
+    products.forEach(prod => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      
+      let imgSrc = prod.image;
+      if (!imgSrc || imgSrc === "YOUR_IMAGE_URL_HERE") {
+        imgSrc = "https://via.placeholder.com/400x240/6a4eff/ffffff?text=Add+Image";
+      }
+      
+      card.innerHTML = `
+        <img class="product-img" src="${imgSrc}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x240/ff6b6b/ffffff?text=Image+Not+Found'">
+        <div class="card-content">
+          <span class="product-tag">${prod.tag}</span>
+          <h3>${prod.name}</h3>
+          <p>${prod.description}</p>
+          <div class="price">${prod.price}</div>
+          <button class="buy-btn" data-id="${prod.id}" data-name="${prod.name}">📦 Purchase Now →</button>
+        </div>
+      `;
+      gridContainer.appendChild(card);
+    });
+    
+    document.querySelectorAll('.buy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const productName = btn.getAttribute('data-name');
+        showToast(`✅ Added to cart: ${productName} (Demo checkout)`);
+      });
+    });
+  }
+  
+  // Toast notification system
+  let toastTimeout;
+  function showToast(message) {
+    const toast = document.getElementById('toastMessage');
+    if (!toast) return;
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toast.textContent = message;
+    toast.classList.add('show');
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+  
+  // =====================================================
+  // ✅✅✅ SOCIAL MEDIA LINKS ✅✅✅
+  // =====================================================
+  
+  const SOCIAL_LINKS = {
+    telegram: "https://t.me/thecoursewallah0",
+    demoTelegram: "https://t.me/+n99VZ0UZyaw2MWQ1",  // Watch Demo button link
+    instagram: "https://www.instagram.com/thecoursewallah01?igsh=cHl1d2FzZWcyMzcy",
+    whatsapp: "https://wa.me/message/DKMVLDDCHFQ5K1"
+  };
+  
+  // Function to open social links
+  function openSocial(platform, link) {
+    window.open(link, '_blank');
+    showToast(`🚀 Opening ${platform}...`);
+  }
+  
+  // Setup Watch Demo Button - Opens Demo Telegram Channel
+  const watchDemoBtn = document.getElementById('watchDemoBtn');
+  if (watchDemoBtn) {
+    watchDemoBtn.addEventListener('click', () => {
+      window.open(SOCIAL_LINKS.demoTelegram, '_blank');
+      showToast("🎥 Opening Demo Channel - Watch Free Demo Classes!");
+    });
+  }
+  
+  // Setup Free Demo Button - Opens Main Telegram Channel
+  const freeDemoBtn = document.getElementById('freeDemoBtn');
+  if (freeDemoBtn) {
+    freeDemoBtn.addEventListener('click', () => {
+      window.open(SOCIAL_LINKS.telegram, '_blank');
+      showToast("🎥 Opening Telegram for Free Demo Class!");
+    });
+  }
+  
+  // Setup Telegram buttons (Main Channel)
+  const telegramBtn = document.getElementById('telegramBtn');
+  const telegramIcon = document.getElementById('telegramIcon');
+  
+  if (telegramBtn) {
+    telegramBtn.addEventListener('click', () => openSocial('Telegram', SOCIAL_LINKS.telegram));
+  }
+  if (telegramIcon) {
+    telegramIcon.addEventListener('click', () => openSocial('Telegram', SOCIAL_LINKS.telegram));
+  }
+  
+  // Setup Instagram buttons
+  const instagramBtn = document.getElementById('instagramBtn');
+  const instagramIcon = document.getElementById('instagramIcon');
+  
+  if (instagramBtn) {
+    instagramBtn.addEventListener('click', () => openSocial('Instagram', SOCIAL_LINKS.instagram));
+  }
+  if (instagramIcon) {
+    instagramIcon.addEventListener('click', () => openSocial('Instagram', SOCIAL_LINKS.instagram));
+  }
+  
+  // Setup WhatsApp buttons
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  const whatsappIcon = document.getElementById('whatsappIcon');
+  
+  if (whatsappBtn) {
+    whatsappBtn.addEventListener('click', () => openSocial('WhatsApp', SOCIAL_LINKS.whatsapp));
+  }
+  if (whatsappIcon) {
+    whatsappIcon.addEventListener('click', () => openSocial('WhatsApp', SOCIAL_LINKS.whatsapp));
+  }
+  
+  // UI Interactions
+  const exploreBtn = document.getElementById('exploreBtn');
+  if (exploreBtn) {
+    exploreBtn.addEventListener('click', () => {
+      document.getElementById('products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showToast("✨ Explore 30 premium courses with preview images!");
+    });
+  }
+  
+  // Smooth nav scrolling
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+  
+  // Initialize products
+  renderProductCards();
+  
+  // Mouse parallax effect for 3D scene
+  document.addEventListener('mousemove', (event) => {
+    const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    const mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+    if (groupRing) {
+      groupRing.rotation.z += (mouseX * 0.02 - groupRing.rotation.z) * 0.05;
+      groupRing.rotation.x += (mouseY * 0.03 - groupRing.rotation.x) * 0.05;
+    }
+    const targetX = mouseX * 0.5;
+    const targetY = mouseY * 0.3;
+    camera.position.x += (targetX - camera.position.x) * 0.02;
+    camera.position.y += (targetY - camera.position.y) * 0.02;
+  });
+  
+  console.log("✅ Website ready! Watch Demo button opens: https://t.me/+n99VZ0UZyaw2MWQ1");
+</script>
+</body>
+</html>
